@@ -1,109 +1,134 @@
 class Level1 extends Node2d {
 	constructor() {
 		super();
+
 		this.input = new Keyboard();
 		this.mouse = new Mouse();
-
-		// player setup //
-
-		this.player = new Node2d({x:0, y:0}, 'player');
-		let player_rect = new Rect();
-		let player_rect2 = new Rect(); //smaller rect to indicate player's diretion
-		player_rect2.pos = {x:30, y:8};
-		player_rect2.size = {w:15, h:15};
-
-		player_rect.setColor("green");
-		player_rect2.setColor("green");
-		this.player.addChild(player_rect);
-		this.player.addChild(player_rect2);
+		this.players = [];
+		this.cam = new Camera();
 		
+		this.pointer = new Rect();
+		this.pointer.size = {w:10, h:10};
+		this.cam.addChild(this.pointer);
+		
+		
+		for (let i = 0; i < 10; i++) {
+			let ply = this.createPlayer();
+			ply.pos.x = Math.random()*500;
+			ply.pos.y = Math.random()*500;
+			this.players.push(ply);
+			
+				
+		}
+	
+		
+		
+		this.control = this.players[0];
 
-
-
-		//some random entities //
+		//random obstacles
+		let spread = 1000;
+		for (let i = 0; i < 60; i++) {
+			let tmp = new Node2d({x:Math.random()*spread, y:Math.random()*spread});
+			tmp.addChild(new Rect());
+			//tmp.children[0].setColor("#dddddd");
+			this.cam.addChild(tmp);
+		}
 		
-		this.b = new Node2d({x:100, y:50});
-		this.b.addChild(new Rect());
 		
-		this.c = new Node2d({x:140, y:100});
-		this.c.addChild(new Rect());
-		
-		//
-
-		
-		this.cam = new Camera(this.player);
-		this.cam.id = 'cam';
-
-		this.cam.addChild(this.player);
-		this.cam.addChild(this.b);
-		this.cam.addChild(this.c);
-		
-		if (this.cast) this.cam.addChild(this.cast);
-		
+		for (let i = 0; i < 10; i++) {
+			this.cam.addChild(this.players[i]);	
+		}
+		this.cam.setTarget(this.players[0]);
 		this.addChild(this.cam);
-		
-
-
 	}
+
 
 	_update() {
 		this.processInput();
-			
-		this.movePlayer();
-		if (this.cast) this.projectPlayerCaster();
-		
+		this.displayPointer();
+
 	}
 
-	projectPlayerCaster() {
-		this.cast.pos.x = -this.player.pos.x;
-		this.cast.pos.y = -this.player.pos.y;
-		this.cast.rotation = -this.player.rotation;
+	displayPointer() {
+		let {x, y} = this.mouse;
+		this.pointer.pos.x = x;
+		this.pointer.pos.y = y;
+		
+		
 	}
 
 	processInput() {
 		if (this.input.key.ArrowLeft) {
-			this.player.rotation -= 0.03;
+			this.control.rotation -= 0.04;
 		}
 
 		if (this.input.key.ArrowRight) {
-			this.player.rotation += 0.03;
+			this.control.rotation += 0.04;
 		}
 
 		if (this.input.key.ArrowDown) {
-			const vel_x = Math.cos(this.player.rotation) * 1;
-			const vel_y = Math.sin(this.player.rotation) * 1;
-			this.player.pos.x -= vel_x;
-			this.player.pos.y -= vel_y;
+			const vel_x = Math.cos(this.control.rotation) * 3;
+			const vel_y = Math.sin(this.control.rotation) * 3;
+			this.control.pos.x -= vel_x;
+			this.control.pos.y -= vel_y;
 		}
 
 		if (this.input.key.ArrowUp) {
-			const vel_x = Math.cos(this.player.rotation) * 2;
-			const vel_y = Math.sin(this.player.rotation) * 2;
-			this.player.pos.x += vel_x;
-			this.player.pos.y += vel_y;
+			const vel_x = Math.cos(this.control.rotation) * 3;
+			const vel_y = Math.sin(this.control.rotation) * 3;
+			this.control.pos.x += vel_x;
+			this.control.pos.y += vel_y;
 
 			
 		}
 
-		if (this.mouse.left_down) {
-			this.mouse.reset();
-			this.cam.rotation_mode = !this.cam.rotation_mode;
+		if (this.input.key.Space) {
+			this.switchCharacter();
+			//this.cam.rotation_mode = !this.cam.rotation_mode;
+			this.input.reset();
 		}
 	}
 
-	movePlayer() {
-		return;
+	switchCharacter() {
+		let n = ~~(Math.random()*9);
+		this.control = this.players[n];
+		this.cam.setTarget(this.players[n]);
 	}
 
+
+
+	createPlayer() {
+
+
+			let player = new Node2d({x:0, y:0}, 'player');
+			let player_rect = new Rect();
+			let player_rect2 = new Rect();
+			player_rect2.pos = {x:30, y:8}; //offset from main rect
+			player_rect2.size = {w:15, h:15};
+			
+			let color = this.getRandomRGB();
+			player_rect.setColor(color);
+			player_rect2.setColor(color);
+			player.addChild(player_rect);
+			player.addChild(player_rect2);
+			
+			return player;
+
+		}
+
 	_render() {
-		const debug1 = "player rotation: " + this.player.rotation.toFixed(2);
-		const debug2 = "player position: " + this.player.pos.x.toFixed(2) + ", " + this.player.pos.y.toFixed(2);
-		const debug3 = "rotation mode: " + this.cam.rotation_mode;
-		ctx.fillText(debug1, 5, 15);
-		ctx.fillText(debug2, 5, 30);
-		ctx.fillText(debug3, 5, 45);
+		return;
 		
 	}
 
+	
+	getRandomRGB() {
+		let values = '0123456789abcdef';
+		let rgb = '#';
+		for (let j = 0; j < 6; j++) {
+			rgb += values[~~(Math.random()*(values.length - 1))];
+		}
+		return rgb;
+	}
 
 }
