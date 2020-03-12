@@ -20,19 +20,20 @@ class Level1 extends Node2d {
 			
 				
 		}
-	
-		
-		
+
+			
 		this.control = this.players[0];
 
 		//random obstacles
 		let spread = 1000;
+		/*
 		for (let i = 0; i < 60; i++) {
 			let tmp = new Node2d({x:Math.random()*spread, y:Math.random()*spread});
 			tmp.addChild(new Rect());
 			//tmp.children[0].setColor("#dddddd");
 			this.cam.addChild(tmp);
 		}
+		*/
 		
 		
 		for (let i = 0; i < 10; i++) {
@@ -40,6 +41,14 @@ class Level1 extends Node2d {
 		}
 		this.cam.setTarget(this.players[0]);
 		this.addChild(this.cam);
+
+
+		//particle
+		//this.em = new ParticleEmitter();
+		//this.players[9].addChild(this.em);
+		this.jolt = new Jolt(this.players[0], this.players[1]);
+		this.cam.addChild(this.jolt);
+		
 	}
 
 
@@ -59,11 +68,17 @@ class Level1 extends Node2d {
 
 	processInput() {
 		if (this.input.key.ArrowLeft) {
-			this.control.rotation -= 0.04;
+			if (this.input.key.ArrowDown) 
+				this.control.rotation += 0.04;
+			else
+				this.control.rotation -= 0.04;
 		}
 
 		if (this.input.key.ArrowRight) {
-			this.control.rotation += 0.04;
+			if (this.input.key.ArrowDown) 
+				this.control.rotation -= 0.04;
+			else
+				this.control.rotation += 0.04;
 		}
 
 		if (this.input.key.ArrowDown) {
@@ -130,5 +145,7 @@ class Level1 extends Node2d {
 		}
 		return rgb;
 	}
+
+	
 
 }

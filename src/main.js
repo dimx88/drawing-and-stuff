@@ -19,7 +19,11 @@ let active_level = 1;
 setInterval(update, 1000/60);
 
 function update() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	//ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "white";
+	ctx.globalAlpha=0.2;
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.globalAlpha=1;
 	ctx.strokeRect(0, 0, canvas.width, canvas.height);
 	//ctx.fillRect(canvas.width/2 -5, canvas.height/2 -5, 10, 10);	//dot at screen center
 
