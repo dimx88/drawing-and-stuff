@@ -1,4 +1,4 @@
-// Kaleidoscope
+// CharocalPaint
 
 
 let canvas = document.getElementById("canvas");
@@ -7,7 +7,7 @@ let ctx = canvas.getContext("2d");
 
 let global = {selected_color:null};
 
-let bg_color = "#ffffff";
+let bg_color = "#E4E2CA";
 
 
 //------------------
@@ -37,6 +37,10 @@ let control_key_down = false;
 let num_strokes = 3;
 let spacing = 5;
 
+let alpha = 0.2;
+
+
+
 initialize();
 
 
@@ -44,9 +48,8 @@ initialize();
 
 function initialize() {
 	addEventListener("mousemove", run);
-	//ctx.fillStyle = bg_color;
-	//ctx.fillRect(0, 0, canvas.width, canvas.height);
-	canvas.style = "background-color: #000000";
+	canvas.style.backgroundColor = bg_color;
+	ctx.globalAlpha = alpha;
 	
 	history.push(takeSnapshot());
 	

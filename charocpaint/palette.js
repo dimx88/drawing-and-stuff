@@ -24,8 +24,8 @@ class Palette {
 		this.cell_width = this.canvas.width / this.columns;
 		this.cell_height = this.canvas.height / this.rows;
 
-		this.selected_col = 29;
-		this.selected_row = 15;
+		this.selected_col = 25;
+		this.selected_row = 0;
 		
 
 		this.outer_border_color = '#000000';
@@ -121,6 +121,7 @@ class Palette {
 	}
 //-------------------------------------------------------------
 	onDoubleClick(e) {
+		if (e.target === palette_canvas)
 		canvas.style.backgroundColor = this.global.selected_color;
 	}			
 //-------------------------------------------------------------
