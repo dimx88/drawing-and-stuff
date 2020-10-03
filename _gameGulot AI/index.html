@@ -1,0 +1,69 @@
+<html>
+<style>
+
+.center {
+  margin: auto;
+  width: 86.4%;
+  position:relative;
+
+ 
+ }
+
+canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	 border: 2px solid #cccccc;
+}
+
+#left_score, #right_score {
+	background-color: #000000;
+	position: absolute; 
+	top: 50px;
+	width: 90px; 
+	height: auto; 
+	border: 2px solid white;
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 65px;
+	text-align: center;
+}	
+ 
+#left_score {
+	
+
+}
+
+#right_score {
+	left:1430px; 
+	
+	
+
+}
+
+
+
+</style>
+<body style="background-color:#353535"/>
+
+<div id="left_score"></div>
+
+<div id="canvas_container" class="center">
+	<canvas id="canvas" width="1300" height="700"  style="background-color:#222222;"></canvas>
+	<canvas id="gui_canvas" width="1300" height="700"></canvas>
+</div>
+
+<div id="right_score"></div>
+
+
+
+
+
+<script src="mouse.js"></script>
+<script src="gui.js"></script>
+<script src="vector2.js"></script>
+<script src="ball.js"></script>
+<script src="sim_ball.js"></script>
+<script src="ai_player.js"></script>
+<script src="main.js"></script>
+
+</html>
