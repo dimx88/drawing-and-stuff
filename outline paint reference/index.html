@@ -1,0 +1,127 @@
+<html>
+<style>
+
+html, body {
+	margin: 0; height: 100%; overflow: hidden
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	background-color:#444444;
+}
+.center {
+  margin: auto;
+  display:block;
+}
+
+
+input[type="range"] {
+    position:absolute;
+	height:10px;
+	width:200px;
+	margin-top:250px;
+	margin-left:-20px;
+	transform: rotate(90deg);  
+}
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.brush_canvas {
+	position: absolute;
+	background-color:#ffffff;
+	border: 1px dashed black;
+	left: 50px;
+	top:70px;
+
+}
+
+.button1 {
+  background-color: #8DB9A8; /* Green */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: "Palatino Linotype";
+  font-size: 18px;
+  transition: background-color 0.2s;
+}
+
+.button1:hover {
+  background-color: #3DEEE5;
+  color: white;
+}
+.button2 {
+  background-color: #A07FBF; 
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: "Palatino Linotype";
+  font-size: 18px;
+  transition: background-color 0.2s;
+}
+
+.button2:hover {
+  background-color: #3DEEE5; /* Green */
+  color: white;
+}
+
+
+</style>
+<body class="unselectable">
+
+
+<canvas id="brush" class="brush_canvas"></canvas>
+
+
+<input type="range" class="slider" id="alpha_slider" min="1" max="100" step="1" value="100"  oninput="onAlphaSliderChange();" style="margin-top:250px; margin-left:90px; transform: rotate(180deg)"/>
+
+<input type="checkbox" id="lineToggle" onclick="toggleLineMode();" style="position:absolute; margin-top:350px; margin-left:170px; width:30; height:30;">
+<div style="font-family:Palatino Linotype;  font-size: 22px; color:#ffffff; position:absolute; margin-top:355px; margin-left:210px; width:30; height:30;">Line</div>
+<span class="slider round"></span>
+
+<button id="undo_button" class="button1" onclick="undo();" style="position: absolute; margin-left:60px; margin-top:620px; ">Undo</button>
+<button id="link" class="button2" onclick="download(this);" style="position: absolute; margin-left:190px; margin-top:620px; ">Save</button>
+
+<canvas id="palette" width = "400" height="150" style="border: 1px solid black; margin-bottom:100px"></canvas>
+
+<canvas id="canvas" width="700" height="700" style="border: 1px solid black; background-color:#bbbbbb; margin-left:10"></canvas>
+<image id="reference" width="390" height="700" style="border: 1px solid black; background-color:#bbbbbb; margin-left:15; position:absolute; background-repeat:no-repeat"></image>
+<input type="file" id="referenceToLoad" onchange="loadReference(event);" style="position: absolute; margin-left:110px; margin-top:650px;">
+
+<!-- <input type="range" id="inline_slider" min="5" max="90" step="1" value="5"  oninput="onInlineWidthSliderChange();" style="margin-left: -20"/> -->
+
+
+
+<!-- <input type="range" class="slider" id="alpha_slider" min="1" max="100" step="1" value="100"  oninput="onAlphaSliderChange();" style="margin-left: 20;"/> -->
+
+
+
+</body>
+<script src="mouse.js"></script>
+<script src="colorCycler.js"></script>
+<script src="palette.js"></script>
+<script src="brushDisplay.js"></script>
+<script src="layer.js"></script>
+<script src="referenceModule.js"></script>
+<script src="main.js"></script>
+</html>
