@@ -1,0 +1,34 @@
+<!doctype HTML>
+<html>
+	<head>
+		<meta charset='utf-8'></meta>
+		<link rel='stylesheet' href='CollagePaint.css'/>
+		
+		<title>CollagePaint</title>
+	</head>
+	
+	<body>
+	
+		<button id='download' onclick='download();'>Save</button>
+		<button id='undo' onclick='undo();'>Undo</button>
+		
+		<input type='file' id='reference' onchange='loadImage(event);'>
+		<canvas id='palette-canvas'></canvas>
+		<canvas id='main-canvas' width='780' height='660'></canvas>
+		<canvas id='image-canvas'></canvas>
+		<canvas id='slider-canvas' width='50px' height='200px'></canvas>
+		
+
+	
+		<!-- Scripts -->
+
+		<script src='Mouse.js'></script>
+		<script src='Slider.js'></script>
+		<script src='ColorCycler.js'></script>
+		<script src='Palette.js'></script>
+		<script src='ImageCropper.js'></script>
+		<script src='Main.js'></script>
+	</body>
+	
+
+</html>

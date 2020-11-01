@@ -1,0 +1,31 @@
+<!doctype HTML>
+<html>
+	<head>
+		<meta charset='utf-8'></meta>
+		<link rel='stylesheet' href='CollagePaint.css'/>
+		
+		<title>CollagePaint</title>
+	</head>
+	
+	<body>
+
+		<button id='download' onclick='download();'>Save</button>
+		<button id='undo' onclick='undo();'>Undo</button>
+		<input type="range" class="slider" id="alpha-slider" min="1" max="100" step="1" value="100"  oninput="onAlphaSliderChange();" style="margin-top:90px; margin-left:90px; transform: rotate(90deg)"/>
+		<input type='file' id='reference' onchange='loadImage(event);'>
+		<canvas id='palette-canvas'></canvas>
+		<canvas id='main-canvas'></canvas>
+		<canvas id='image-canvas'></canvas>
+
+	
+		<!-- Scripts -->
+
+		<script src='Mouse.js'></script>
+		<script src='ColorCycler.js'></script>
+		<script src='Palette.js'></script>
+		<script src='ImageCropper.js'></script>
+		<script src='Main.js'></script>
+	</body>
+	
+
+</html>
